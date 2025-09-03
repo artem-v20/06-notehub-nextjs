@@ -9,17 +9,15 @@ import css from './NotesPage.module.css';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
 import NoteList from '@/components/NoteList/NoteList';
-import Loader from '@/components/Loader/Loader';
 import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 
 const NotesClient = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
 
-  const { data, isSuccess, isLoading, isError } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ['notes', page, search],
     queryFn: () => fetchNotes(page, search),
     placeholderData: keepPreviousData,
@@ -62,8 +60,6 @@ const NotesClient = () => {
       {isSuccess && data && data.notes.length > 0 && (
         <NoteList notes={data.notes} />
       )}
-      {isLoading && <Loader />}
-      {isError && <ErrorMessage />}
       {modalIsOpen && (
         <Modal closeModal={handleCloseModal}>
           <NoteForm closeModal={handleCloseModal} />

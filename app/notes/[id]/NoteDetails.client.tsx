@@ -4,7 +4,7 @@ import { fetchNoteById } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import css from './NoteDetails.module.css';
-import Loader from '@/components/Loader/Loader';
+import Loading from '../loading';
 
 const NoteDetailsClient = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,7 +33,8 @@ const NoteDetailsClient = () => {
           </div>
         </div>
       )}
-      {isLoading && <Loader />}
+      {isLoading && <Loading />}
+      {!note && <p>Something went wrong.</p>}
     </>
   );
 };
