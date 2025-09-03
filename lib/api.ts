@@ -23,6 +23,11 @@ export const fetchNotes = async (
   return data;
 };
 
+export const fetchNoteById = async (id: string): Promise<Note> => {
+  const { data } = await instance.get<Note>(`/notes/${id}`);
+  return data;
+};
+
 export const createNote = async (newNote: NewNote): Promise<Note> => {
   const { data } = await instance.post<Note>('/notes', newNote);
   return data;
